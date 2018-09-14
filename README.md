@@ -6,4 +6,4 @@ Terms Learnt:
 Decompose,
 Extract Method,
 Move Method,
-Replace Temp with QUery
+Replace Temp with Query

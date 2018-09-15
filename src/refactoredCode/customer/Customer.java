@@ -29,8 +29,7 @@ public class Customer {
         rentals.add(rental);
     }
 
-    public String statement() {
-        double totalAmount = 0;
+    public String htmlStatement() {
         int frequentRentalPoints = 0;
 
         Enumeration rentalsEnum = rentals.elements();
@@ -41,20 +40,31 @@ public class Customer {
 
             Rental aRental = (Rental) rentalsEnum.nextElement();
 
-            //add freaquest renter points
-            frequentRentalPoints++;
-
-            //add bouns for a two day new release
-            if (aRental.getMovie().getPriceCode() == NEW_RELEASE && aRental.getDaysRented() > 1) {
-                frequentRentalPoints++;
-            }
-
             result += "\t" + aRental.getMovie().getTitle() + "\t" + String.valueOf(aRental.getCharges()) + "\n";
 
-            //add footer line
-            result += "Amount owned is " + String.valueOf(totalAmount);
+            result += "Amount owned is " + String.valueOf(getTotalCharge());
 
-            result += "You earned " + String.valueOf(frequentRentalPoints) + " frequest renter point";
+            result += "You earned " + String.valueOf(getTotalFrequentRentalPoints()) + " frequest renter point";
+        }
+        return result;
+    }
+
+    private double getTotalCharge() {
+        double result = 0;
+        Enumeration rentalsEnum = rentals.elements();
+        while(rentalsEnum.hasMoreElements()) {
+            Rental rental = (Rental) rentalsEnum.nextElement();
+            result += rental.getCharges();
+        }
+        return result;
+    }
+
+    private int getTotalFrequentRentalPoints() {
+        int result = 0;
+        Enumeration rentalsEnum = rentals.elements();
+        while(rentalsEnum.hasMoreElements()) {
+            Rental rental = (Rental) rentalsEnum.nextElement();
+            result += rental.getFrequentRentalPoints();
         }
         return result;
     }

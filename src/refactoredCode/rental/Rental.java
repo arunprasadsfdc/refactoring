@@ -3,6 +3,7 @@ package refactoredCode.rental;
 import actualCode.movie.Movie;
 
 import static actualCode.movie.Movie.*;
+import static refactoredCode.movie.Movie.NEW_RELEASE;
 
 public class Rental {
 
@@ -53,5 +54,15 @@ public class Rental {
                 System.out.println("Invalid Data.");
         }
         return thisAmount;
+    }
+
+    public int getFrequentRentalPoints() {
+        int frequentRentalPoints = 1;
+
+        if (getMovie().getPriceCode() == NEW_RELEASE && getDaysRented() > 1) {
+            frequentRentalPoints++;
+        }
+
+        return frequentRentalPoints;
     }
 }
